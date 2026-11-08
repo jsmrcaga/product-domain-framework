@@ -7,6 +7,13 @@ metadata:
   version: v0.0.1
 ---
 
+This skill aims to build a tech spec. The tech spec is an explanation of an implementation
+for a given requirement, with diagrams, examples, and architecture decisions.
+The tech spec itself is not a list of tickets, or detailed code examples to implement.
+It will contain edge cases and examples of code, but should not "pre-implement" anything.
+THe goal is for all engineers in the team to understand the plan, review, critique and come
+up with better solutions.
+
 The user might set you in one of two modes, [Auto](#auto) or [Coaching](#coaching),
 make sure to follow the [Mode Decision](#mode-decision) section to decide which
 mode to pick and confirm with the user.
@@ -14,24 +21,29 @@ mode to pick and confirm with the user.
 Follow the general steps in [Steps](#steps) to build the spec with the user. The goal
 is to produce Outputs defined in [outputs](#outputs).
 
+This skill might be used from an orchestrator agent into a sub-agent. If this is the case
+make sure to warn the user that they won't be able to interact. If warning the user is impossible
+fail immediately by reporting to the main agent that this skill needs top-level execution
+
 # Inputs
-The user will need to provide
+Some of the inputs are part of the repo and the KNOWLEDGE_BASE. Get acquainted with it.
 - a condensed explanantion of the codebase
-  - if not provided, ask the user to use the Architect Documenter agent first,
-    or spawn it yourself after confirming with the user.
+  - this should be a part of the `/tech` folder in the repo
   - this might be spread on multiple repos (eg: front/back/mobile)
 - a condensed explanation of the product
-  - if not provided, ask the user to use the Product Documenter agent first,
-    or spawn it yourself after confirming with the user.
+  - this should be part of the `/product` folder in the repo
 - a PRD or Product Brief
   - this might be a link, so make sure to use the necessary MCPs (figma, notion etc)
+  - it might also be an in-progress PRD RFC in the repo itself
 - any required specs for previous implementations or known systems
   - For example OAuth specs, javascript/typescript documentation etc
-- requirements for the codebase itself.
+- requirements for the codebase itself
   - Look inside the codebase you might be able to find them yourself
 - the output mode (single file or spec folder)
 - the urgency requirement
   - Some "bad choices" might be acceptable depending on the urgency
+- a template to use for the tech spec
+  - if none given, use the one in `./assets/TECH_SPEC_TEMPLATE.md`
 - execution mode (auto/coaching)
   - make sure to ask the user if this is not provided. By default use "coaching" mode
 
@@ -45,23 +57,26 @@ The user will need to provide
     allow new PRDs to easily branch off from this. We want to be pragmatic and not build a fully
     generic system either.
 
-# Steps
-1. Get acquainted with the documentation provided by the user, and ask for more
+# Instructions
+0. Read `../../instructions/BASE_INSTRUCTIONS.md` first
+1. Read the `./KNOWLEDGE_BASE` file to get acquainted on how this repo works
+2. Get acquainted with the documentation provided in the repo, and ask for more
    information if necessary
   - Understand the codebase explanation
   - Check any related specs
   - Read the codebase requirements
-2. Understand the spec perimeter
+3. Understand the spec perimeter
   - Check the PRD or Product Brief (can be provided or pulled from Figma, Notion etc)
   - Ask questions to the user, and check the [Mode](#mode) for step modifiers
-3. Begin drafting the spec
+4. Begin drafting the spec
+  - Use normal english, no em-dashes, no weird phrasing. Ask the user for text they wrote as example
   - With the context you have, begin drafting a tech spec that answers the problem
   - It should allow implementing in Milestones
     - Milestones are either things we can put in production without breaking any live systems
     - Or things that can bring value to the users even if the project is not complete
   - If there are any security concerns, make sure to flag them too and ask the user if necessary
-4. Ask the user to review, the user might use a spec-review agent if necessary
-5. Sign off the spec as final
+5. Ask the user to review, the user might use a spec-review agent if necessary
+6. Sign off the spec as final
 
 # Modes
 
@@ -75,7 +90,7 @@ The user will need to provide
 - In coaching mode your goal is to make sure the user participates in the spec
 
 For steps:
-- 1 and 2:
+- 2 and 3:
   - Once you are acquainted with the docs, codebase etc, ask a few clarification questions
     to the user. These questions should be about pieces of the existing docs/codebase that 
     will be directly modified by this spec, or that will affect how this spec is written.
@@ -83,14 +98,14 @@ For steps:
   - Our goal here is to make sure the user understands these sections, how they will change
     and how they are affecting the current spec. Let's pay attention to edge cases and hidden
     or hard-to-find conditions
-- 3: Draft the spec _with the user_:
+- 4: Draft the spec _with the user_:
   - Ask the user what they think the best Milestone slicing is
   - Ask the user first what they think the best approach might be for the implementation itself
   - Spar with them to decide on the best way forward. Don't be too opinionated but flag important
     issues, security problems, and one-way-door decisions that might hinder future development.
   - Ask questions to the user about how they see the future PRDs applying to this, what they imagine
     next features/implementations to be, and how to make sure this spec remains pragmatic but extensible.
-- 4: Ask the user to use a different agent to review
+- 5: Ask the user to use a different agent to review
   - so as to not pollute the context. And ask them
     validation that human peers also reviewed
 

@@ -4,6 +4,8 @@
 
 - /assets
 	- Any assets used for describe features or feedback, such as diagrams, screenshots...
+- /discovery
+	- For product discovery, competitor analysis, feature analysis etc
 - /metrics
 	- /KPIS.md: the KPIs defined with the user. They require a short name, a source, a justification, a target, a "current value" (dated) and a strategy to improve
 	- /METRICS.md: any metrics used to measure the feature. They require a name, source, justification.
