@@ -13,9 +13,11 @@ metadata:
 ##  Descritpion
 <Description of the feature/>
 
+## Dependencies
+<Known dependencies on other features, teams, systems, or prerequisites. State when none are known or the information is unavailable.>
+
 ## Customer base
 <Short explanation of the customer base for this feature/>
 
 ## Variations
 <Any variations this feature has, depending on customer base, settings.../>
-
