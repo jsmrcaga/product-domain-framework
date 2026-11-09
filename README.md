@@ -16,6 +16,17 @@ This project is wip. There is still much to do
 
 # Quickstart
 
+Always use the `/prdf-owner` skill as the agent you invoke.
+Then ask it what you want to do, it will select the relevant skills for you
+
+```sh
+> /prdf-owner let's bootstrap product
+```
+
+```sh
+> /prdf-owner tech team says that user cannot do X, but it should be possible. What's the status?
+```
+
 # Actions
 
 You can perform any of these actions with the agents. Only one allowed at a time:
@@ -31,6 +42,8 @@ You can perform any of these actions with the agents. Only one allowed at a time
    - Moves an RFC from "Draft" to "Adopted" and moves the necessary pieces to their corresponding sections
 - Implement: Implement a Product feature (tech), Analytics (Product) or Design (Design)
    - Performs the implementation steps of a spec with dedicated agents
+- Query: needs an answer to a question pertaining to this subdomain
+   - Checks the knowledge base (product/tech/design) and gets the answer
 - Debug: the user might ask you to debug the Product-domain framework itself
    - For owners, allows debugging the framework to make it fit your workbase a bit better
    - This should only edit "user editable" files

@@ -80,6 +80,10 @@ on how this repository is set-up, how the skills work, and the expectations they
 
 Use the `/prdf-debug` skill.
 
+## Query
+- Use the `/prdf-query` skill directly
+- Do not spawn subagents
+
 ## Product
 - For all actions:
   - Read `./product/INSTRUCTIONS.md`
