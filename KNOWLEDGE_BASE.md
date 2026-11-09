@@ -67,6 +67,18 @@ You MUST NOT edit any of these files, ever:
 
 ## Tech
 
+### Description
+
+Holds the Tech knowledge base.
+The knowledge base is mostly based on the entire code-base of the subdomain's system,
+this is likely a combination of multiple repositories, multilpe technologies, front-end,
+back-end, infra, etc.
+
+The tech knowledge base will distill the information about the codebase in the /tech/codebase folder,
+that will be split by features.
+
+Any org-wide ADRs or guidelines should be stored in the GLOBAL_GUIDELINES.md file.
+
 ### Structure
 ```
 /tech
@@ -81,11 +93,17 @@ You MUST NOT edit any of these files, ever:
       - /diagrams (architecture diagrams, must be updated with RFC promotion)
    - ARCHITECTURE.md (tl;dr of the architecture)
 - /codebase
+   - /features (holds the features and where they interact in the codebase)
+      - FEATURE.md
+   - /repos (holds the list of repos with descriptions of what they hold, ownership and interesting sections)
+      - /repo_1
+         - REPO.md
    - CODEBASE.md (references and sources to the codebase, used to explore the actual codebase)
 - /data-model
    - DATA_MODEL.md ()
 - /globals
    - PROVIDERS.md (list of providers the specs must use, eg: Stripe, Segment, FusionAuth, Okta... etc)
+- ./GLOBAL_GUIDELINES.md (holds orgnaization-wide guidelines such as golden path, security, certifications...)
 - ./INSTRUCTIONS.md (holds custom instructions to write RFCs)
 - ./TECH.md (tl;dr for agents on how to find information in this folder)
 - ./README.md (human readable, editable file)
