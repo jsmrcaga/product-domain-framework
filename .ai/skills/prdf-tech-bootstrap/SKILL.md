@@ -3,8 +3,8 @@ name: prdf-tech-bootstrap
 description: A skill to start the /tech section of a PRDF repo, gets necessary info from user, crafts diagrams and documents decisions and architecture
 compatibility: Might require access to GitHub/GitLab/Bitbucket, local codebase too. Might require access to Notion, Figma and other MCP servers
 metadata:
-	author: jsmrcaga
-	version: v0.0.1
+  author: jsmrcaga
+  version: v0.0.1
 ---
 
 This skill will allow you to build the initial knowledge base for `/tech`
