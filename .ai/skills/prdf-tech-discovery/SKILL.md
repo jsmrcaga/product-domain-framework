@@ -3,8 +3,8 @@ name: prdf-tech-discovery
 description: A skill to perform discovery on a collection of code-bases/repositories and tech sources
 compatibility: Might require access to GitHub/GitLab/Bitbucket, local codebase too. Might require access to Notion, Figma and other MCP servers
 metadata:
-	author: jsmrcaga
-	version: v0.0.1
+  author: jsmrcaga
+  version: v0.0.1
 ---
 
 This skill will allow you to gather information about a tech system from
