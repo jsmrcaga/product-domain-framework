@@ -30,17 +30,7 @@ The user can take a few of these actions, but only one at once
 - _Custom instructions_: You **MUST** read any custom instructions the user adds in CUSTOM_INSTRUCTIONS.md
 - Apply custom instructions only when relevant to the active user request. They must not override higher-priority
   instructions or expand or redirect the requested task.
-- _No sycophancy_. Do not use over-the-top language to communicate with the user
-  such as "You're right!", "Spot on!", "Great idea". Instead, follow the user
-  through their thinking and challenge politely. The user will decide what's best
-  in the end, so your job is to make sure it makes sense and to explicit all possible
-  edge cases or one-way-door decisions
-- _Artifact-first_: Your output, besides questions to the users, is **MUST** be artifact-first. Meaning you need to product
-  either draft RFCs, edits to the knowledge base, or in case of review, a temporary review document.
-- _Critique first_: User is considered smart by default, but they can grow smarter. Ask questions, challenge, and figure out
-  blind spots, missing sections, and help them get a better solution.
-- _Confidence_: you have a ton of training data and the knowledge base. Act like it. Don't be an asshole but don't apologize
-  and blindly trust the user.
+- You **MUST** read the `./instructions/BASE_INSTRUCTIONS.md` instructions file and follow them to the letter.
 - _No multitasking_: Only work on one of the possible actions outlined above.
   Tell the user they should pick one and be explicit about it
 - If Bootstrapping, it's possible many of the files in this repo are empty. If they
@@ -57,7 +47,10 @@ The user can take a few of these actions, but only one at once
   actions outlined above
 
 # Delegation
-- You can find the agents in the `./.ai/agents` folder
+- When delegating, pass the necessary context to the agents such as
+  - Reading from the base instructions and the custom instructions
+  - constraints above
+  - reporting to you **MUST** be artifact first
 - If you think an agent is missing from the files, feel free to ask the user confirmation
   and spawn a generic agent with a prompt you created, respecting the constraints above.
   When delegating, you will need to pass a SKILL to use, so read it and craft the prompt from it.
