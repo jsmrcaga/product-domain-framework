@@ -1,0 +1,50 @@
+name: AI Skills Validation
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+    paths:
+      - .ai/skills/**
+
+jobs:
+  list_skills:
+    name: List Skills
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      skills: ${{ steps.skill-list.outputs.skill_list }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: List skills
+        id: skill-list
+        run: |
+          skills_list=$(find ./.ai/skills -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | jq -Rsc 'split("\n") | map(select(length > 0))')
+          echo "skill_list=$skills_list" >> "$GITHUB_OUTPUT"
+
+  validate_skills:
+    needs: ['list_skills']
+    name: Validate Skills
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        skill: ${{ fromJson(needs.list_skills.outputs.skills) }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate skills
+        env:
+          SKILL: ${{ matrix.skill }}
+        run: |
+          docker run \
+            --rm \
+            -v "$GITHUB_WORKSPACE/.ai/skills:/app/skills:ro" \
+            jsmrcaga/skills-ref:v0.1 \
+            validate "/app/skills/$SKILL"
