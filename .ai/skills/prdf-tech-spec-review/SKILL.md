@@ -27,20 +27,17 @@ alternatives to the user.
 - Any special context for the tech spec, such as security constraints, time constraints,
   tech debt problems, etc...
 
+# Invocation
+
+- **Interactive:** The user may invoke this skill directly, or `/prdf-owner` may invoke it in the current conversation. This mode owns clarification and the review loop; do not spawn this mode as an agent.
+- **Report-only:** The user or parent may explicitly request a one-pass review artifact from an agent. Use the supplied scope and context, do not ask the user questions or start a follow-up loop, and return the report to the assigned path. Report missing inputs to the parent.
+
 # Instructions
 
-0. Read `../../instructions/BASE_INSTRUCTIONS.md` and `./CUSTOM_INSTRUCTIONS.md`
-1. Read the tech spec the user shared
-2. Spawn specialized agents to start the review. These should have minimum context
-   on the conversation you had with the user. They should behave as external consultants
-   trying to get the best possible solution on their respective expertises.
-   You can find the agent prompts in `./.ai/agents/tech`, you can spawn all of them except `base`
-   (base is used as base instructions for all of them).
-3. Synthesize the review: all of the agents should report back files with their findings.
-   Your job is now to synthesize the reviews into a comprehensive and well formatted document
-   for the user. Your delivery is artifact first, so deliver that file, and list the top 5 findings
-   in the chat pane.
-4. Ask the user to enter a review loop. When they make changes, spawn the agents again, giving them
-	their previous findings as input. Go back to 2.
-5. Follow the loop until the user indicates the result is satisfactory. As usual, argue against it,
-   the user needs to earn it.
+0. Read `.ai/instructions/BASE_INSTRUCTIONS.md` unless already available in the current conversation. Read the PRDF-root `CUSTOM_INSTRUCTIONS.md` through the shared base rules.
+1. Read the tech spec. In interactive mode, resolve missing review context or scope with the user before delegation. In report-only mode, use supplied context and report missing inputs to the parent.
+2. Apply the shared technical review criteria in `.ai/agents/tech/base.md`. Select only role prompts relevant to materially affected areas using its reviewer-selection matrix. The `base.md` file supplies shared instructions; it is not a reviewer agent.
+3. Give each selected reviewer only the spec excerpts, relevant source paths, constraints, user decisions, and a distinct report path needed for its assignment.
+4. Synthesize the findings into a comprehensive, actionable review file at the assigned session-scratchpad path. Deduplicate feedback and list the top five findings when presenting the report.
+5. In interactive mode, ask the user whether they want another review pass. If they do, rerun only reviewers whose scope was affected by the changes and carry forward unaffected findings as not rechecked.
+6. Continue the interactive review loop until the user indicates the result is satisfactory. In report-only mode, return the one-pass artifact to the parent.

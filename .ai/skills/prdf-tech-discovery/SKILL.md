@@ -30,23 +30,23 @@ This skill is still WIP.
 
 # Instructions
 
-0. Prepare a temporary report file using your harness
-1. Divide the work by source type:
-	- Architecture & Diagrams
+0. Read `.ai/instructions/BASE_INSTRUCTIONS.md` unless already available in the current conversation. Use the user/parent-provided scope and follow its source-handling, context-handoff, and report-output rules.
+1. When working directly with the user, clarify missing scope or source information. When delegated, do not ask the user; report missing inputs to the parent.
+2. Divide the work by source type:
+	- Architecture & diagrams
 	- Codebase
-	- Diagrams
-	- RFCs/Specs
-2. Start by architecture, then codebase, and then for each source type
-   follow the corresponding section in this doc
-3. Write a report to the file and communicate the file location to the user/parent agent
+	- Data model (record it with the architecture or codebase findings)
+	- RFCs/specs
+3. Start with architecture and diagrams, then codebase, then RFCs/specs when provided.
+4. When delegated, write the report to the assigned path and communicate that path and any unavailable sources to the parent. When invoked directly without an assigned path, return the report in the conversation unless the harness provides a scratchpad.
 
 # Architecture & Diagrams
 - Visit all sources for architecture
 - Craft a synthesized version making sure to flag
 	- What is "global arch" (IAM, clouds/hosting, permissions/roles)
 	- Direct dependencies of our subdomain
+	- Data models and interactions relevant to the subdomain
 	- Add more detail into everything related to our subdomain
-- Write your findings to your temporary file
 
 # Codebase
 - Start by listing all codebases you need to visit
@@ -59,10 +59,8 @@ This skill is still WIP.
 	- For every folder that is directly owned by our subdomain, add information
 	  about the features, variations and edge-cases you find.
 	- From the tabs you kept, keep a record of the dependencies to our subdomain
-	  in your temporary file
 
 # RFCs/Specs
 - Visit all RFC and Spec sources
 - Read them, and map them back to Architecture & Codebase findings
-- Add any missing information, and flag any drift in your temporary file
-
+- Add any missing information, and flag any drift
