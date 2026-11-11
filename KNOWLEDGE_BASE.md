@@ -12,7 +12,10 @@ You MUST NOT edit any of these files, ever:
 - Any of PRODUCT_INTRO.md, DESIGN_INTRO.md, or TECH_INTRO.md
 - Any file in the `.ai` directory
 - Any file in the `.github` directory
+- Any file in the `.migrations` directory
 
+## Editing & Text formatting
+Read the `# Writing to the PRDF repo` section of the `.ai/instructions/BASE_INSTRUCTIONS.md` file.
 
 ## Product
 
@@ -31,6 +34,8 @@ You MUST NOT edit any of these files, ever:
       - FEATURE.md
    - /feature_2
    - ...
+- /references
+   - REFERENCES.md (holds product references, like upcoming legal changes etc)
 - /feedback
    - SOURCES.md (feedback sources, might be updated by humans or agents)
    - TRIAGE.md (feedback that needs to be triaged into one or multiple features)
@@ -58,6 +63,8 @@ You MUST NOT edit any of these files, ever:
       - DESIGN_CHOICES.md
    - /feature_2
    - ...
+- /references
+   - REFERENCES.md (holds design references, like upcoming A11Y changes etc)
 - /design-system
    - DESIGN_SYSTEM.md (design system sources, directions, custom instructions)
 - ./INSTRUCTIONS.md (holds custom instructions to help design/review, sync to Figma etc)
@@ -99,6 +106,8 @@ Any org-wide ADRs or guidelines should be stored in the GLOBAL_GUIDELINES.md fil
       - /repo_1
          - REPO.md
    - CODEBASE.md (references and sources to the codebase, used to explore the actual codebase)
+- /references
+   - REFERENCES.md (holds technical references, such as global specs etc...)
 - /data-model
    - DATA_MODEL.md ()
 - /globals
