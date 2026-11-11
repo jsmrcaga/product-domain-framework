@@ -15,15 +15,12 @@ THe goal is for all engineers in the team to understand the plan, review, critiq
 up with better solutions.
 
 The user might set you in one of two modes, [Auto](#auto) or [Coaching](#coaching),
-make sure to follow the [Mode Decision](#mode-decision) section to decide which
-mode to pick and confirm with the user.
+make sure to follow the [Modes](#modes) section to decide which mode to pick and confirm with the user.
 
-Follow the general steps in [Steps](#steps) to build the spec with the user. The goal
+Follow the instructions below to build the spec with the user. The goal
 is to produce Outputs defined in [outputs](#outputs).
 
-This skill might be used from an orchestrator agent into a sub-agent. If this is the case
-make sure to warn the user that they won't be able to interact. If warning the user is impossible
-fail immediately by reporting to the main agent that this skill needs top-level execution
+Run the drafting workflow in the user-facing conversation. Do not spawn this workflow as an agent; it requires direct user participation and feedback.
 
 # Inputs
 Some of the inputs are part of the repo and the KNOWLEDGE_BASE. Get acquainted with it.
@@ -43,7 +40,7 @@ Some of the inputs are part of the repo and the KNOWLEDGE_BASE. Get acquainted w
 - the urgency requirement
   - Some "bad choices" might be acceptable depending on the urgency
 - a template to use for the tech spec
-  - if none given, use the one in `./assets/TECH_SPEC_TEMPLATE.md`
+  - if none given, use `.ai/skills/prdf-tech-spec-draft/assets/TECH_SPEC_TEMPLATE.md` from the PRDF repository root
 - execution mode (auto/coaching)
   - make sure to ask the user if this is not provided. By default use "coaching" mode
 
@@ -58,8 +55,8 @@ Some of the inputs are part of the repo and the KNOWLEDGE_BASE. Get acquainted w
     generic system either.
 
 # Instructions
-0. Read `../../instructions/BASE_INSTRUCTIONS.md` first
-1. Read the `./KNOWLEDGE_BASE` file to get acquainted on how this repo works
+0. Read `.ai/instructions/BASE_INSTRUCTIONS.md` from the PRDF repository root unless already available in the current conversation.
+1. Read the PRDF-root `KNOWLEDGE_BASE.md` to get acquainted with how this repo works.
 2. Get acquainted with the documentation provided in the repo, and ask for more
    information if necessary
   - Understand the codebase explanation
@@ -67,7 +64,7 @@ Some of the inputs are part of the repo and the KNOWLEDGE_BASE. Get acquainted w
   - Read the codebase requirements
 3. Understand the spec perimeter
   - Check the PRD or Product Brief (can be provided or pulled from Figma, Notion etc)
-  - Ask questions to the user, and check the [Mode](#mode) for step modifiers
+  - Ask questions to the user, and check the [Modes](#modes) section for step modifiers
 4. Begin drafting the spec
   - Use normal english, no em-dashes, no weird phrasing. Ask the user for text they wrote as example
   - With the context you have, begin drafting a tech spec that answers the problem
@@ -75,13 +72,13 @@ Some of the inputs are part of the repo and the KNOWLEDGE_BASE. Get acquainted w
     - Milestones are either things we can put in production without breaking any live systems
     - Or things that can bring value to the users even if the project is not complete
   - If there are any security concerns, make sure to flag them too and ask the user if necessary
-5. Ask the user to review, the user might use a spec-review agent if necessary
+5. Ask the user to review. If they want a one-pass review artifact, delegate a report-only review with the spec and relevant context. If they want an iterative review loop, have them invoke `/prdf-tech-spec-review` directly.
 6. Sign off the spec as final
 
 # Modes
 
 ## Auto
-- In Auto mode, follow the [Steps](#steps) as autonomously as possible
+- In Auto mode, follow the instructions as autonomously as possible
 - Make sure to ask questions to the user for any blurry points
   - you might bulk the questions if necessary in the chat or in a file
 - If there's any forks in the spec (decisions that might affect the future) make sure to flag them and ask the user
@@ -94,7 +91,7 @@ For steps:
   - Once you are acquainted with the docs, codebase etc, ask a few clarification questions
     to the user. These questions should be about pieces of the existing docs/codebase that 
     will be directly modified by this spec, or that will affect how this spec is written.
-    Take a look at [Coaching Example 1](#examples-coaching-1)
+    Ground these questions in the supplied docs and the context the user wants changed.
   - Our goal here is to make sure the user understands these sections, how they will change
     and how they are affecting the current spec. Let's pay attention to edge cases and hidden
     or hard-to-find conditions
@@ -105,9 +102,7 @@ For steps:
     issues, security problems, and one-way-door decisions that might hinder future development.
   - Ask questions to the user about how they see the future PRDs applying to this, what they imagine
     next features/implementations to be, and how to make sure this spec remains pragmatic but extensible.
-- 5: Ask the user to use a different agent to review
-  - so as to not pollute the context. And ask them
-    validation that human peers also reviewed
+- 5: Follow step 5 above and ask whether human peers also reviewed.
 
 # Outputs
 - An MD file or a directory with MD files for the tech spec

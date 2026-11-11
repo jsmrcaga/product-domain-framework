@@ -14,10 +14,9 @@ The goal is to review some recent code changes, locally, and provide input to th
 on how to better approach the changes.
 
 # Execution modes
-This skill should always be executed either manually by the user, or from the /prdf-owner
-main skill.
-If not, context will be missing, so exit with an error.
-In both cases, an execution mode of "coaching" or "auto" will be provided. Default to "coaching"
+- **Interactive:** The user may invoke this skill directly, or `/prdf-owner` may invoke it in the current conversation. This mode owns user questions and follow-up; do not spawn this mode as an agent.
+- **Report-only:** The user or parent may explicitly request a one-pass review artifact from an agent. Use the supplied scope and context, do not ask the user questions, and return the report to the assigned path. Report missing inputs to the parent rather than failing with no result.
+- Interactive runs use "coaching" or "auto" execution mode. Default to "coaching".
 
 # Inputs
 
@@ -33,25 +32,28 @@ In both cases, an execution mode of "coaching" or "auto" will be provided. Defau
 
 # Instructions
 
-0. Read `../../instructions/BASE_INSTRUCTIONS.md` and `./CUSTOM_INSTRUCTIONS.md`
+0. Read `.ai/instructions/BASE_INSTRUCTIONS.md` unless already available in the current conversation.
+   Include `.ai/agents/tech/base.md` with each selected reviewer task; do not copy its shared criteria into the role prompts.
 1. Read the context of the review
 	- If there is a ticket, read the ticket
 	- For any PRD or Tech Spec also try to find it in the PRDF repo
-2. Ask the user any clarifying questions, such as
+2. In interactive mode, resolve review questions with the user before delegation, such as
 	- Missing context for the review
 	- If the review is partial (eg 1 commit ready but 3 planned...)
 	- If the review should include or exclude any specific focus (such as security, pragmatism, )
 	- What the review is about (infra, app code, DX...)
-3. With that information, decide which agents to spawn. You should always spawn _at least one_.
-	 Every agent should write back their review in a temporary file (thanks to their harness temp file
-	 tool) and communicate the file back to you.
-	 You can find the agents and their prompts in `./agents`. This is the list
+   In report-only mode, use supplied context and report missing inputs to the parent instead of asking the user.
+3. Use the reviewer-selection matrix in `.ai/agents/tech/base.md`. Choose only role prompts relevant to materially affected scope:
 	 - Security Expert
+	 - Software Finance Manager
 	 - Codebase Architect
 	 - Infrastructure Architect
 	 - Domain Expert
+	 - Contrarian / YAGNI
+   Give each selected reviewer a distinct report path and the relevant review context only.
 4. Once all agents have reported back, synthesize the findings into a separate review file.
    This file should deduplicate any feedback from the agents, and make it actionable for the user.
+   Write it to the assigned session-scratchpad path.
    If the execution mode is "auto":
 		- The synthesized document should include tasks that will be picked up by an LLM
    If the execution mode is "coaching":

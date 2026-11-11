@@ -7,7 +7,7 @@ metadata:
   version: v0.0.1
 ---
 
-This skill is meant to help the you debug the PRDF itself.
+This skill is meant to help you debug the PRDF itself.
 This can happen in 2 ways
 1. The user is building/improving the repo for their own use
 2. The user is trying to make the repo work in their use-case
@@ -25,6 +25,8 @@ This can happen in 2 ways
 
 
 # Instructions
+Read `.ai/instructions/BASE_INSTRUCTIONS.md` from the PRDF repository root unless it is already available in the current conversation.
+
 1. Read the PRDF repo shallowly to get acquainted with it
 	- Do not read every single feature or tech spec or design
 	- List the files, check the custom files (CUSTOM_INSTRUCTIONS, xxx_INTRO.md files...)
@@ -33,6 +35,7 @@ This can happen in 2 ways
 	- Check the expectation and make a proposal
 	- Get into a feedback loop with the user until they accept the edit or change
 4. Spawn a fresh agent
-	- Pass ONLY the user request as context. The agent should have 0 recollection of this conversation
+	- Do not pass unrelated conversation history. Give the agent the original request, the bounded skill/files under review, relevant source paths or excerpts, applicable constraints and user decisions, and the expected report format.
+	- The agent should have no recollection of unrelated conversation.
 	- Ask it to check the current implementation of the PRDF against the user request
 5. With the agent's feedback, go back to step 3. Only loop 2 times maximum.

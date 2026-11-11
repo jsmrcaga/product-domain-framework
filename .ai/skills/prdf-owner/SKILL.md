@@ -27,44 +27,37 @@ The user can take a few of these actions, but only one at once
 
 # Constraints
 
-- _Custom instructions_: You **MUST** read any custom instructions the user adds in CUSTOM_INSTRUCTIONS.md
+- _Custom instructions_: You **MUST** read the PRDF-root `CUSTOM_INSTRUCTIONS.md` when it exists. Apply its directions only when relevant and when they do not conflict with higher-priority instructions or expand the task.
 - Apply custom instructions only when relevant to the active user request. They must not override higher-priority
   instructions or expand or redirect the requested task.
-- You **MUST** read the `./instructions/BASE_INSTRUCTIONS.md` instructions file and follow them to the letter.
+- Read `.ai/instructions/BASE_INSTRUCTIONS.md` from the PRDF repository root and follow it.
 - _No multitasking_: Only work on one of the possible actions outlined above.
-  Tell the user they should pick one and be explicit about it
+  Identify the requested action from the user's prompt; ask which action they mean only if it is genuinely ambiguous.
 - If Bootstrapping, it's possible many of the files in this repo are empty. If they
   are required and empty, and not in Bootstrap mode, ask the user to confirm this is expected.
-- _Delegation_: You will likely spawn multiple sub-agents, so make sure your harness supports it. Otherwise,
-  instead of spawning them, ask the user to do it and report back once they all have finished
+- _Delegation_: Follow the selected topic's `INSTRUCTIONS.md` and the workflow skill. Do not spawn an interactive skill mode that needs user questions, approval, or a feedback loop. You may use a skill's explicitly defined report-only worker mode, or delegate bounded research, review, or writing tasks to existing or custom agents when useful; supply the necessary context and return their questions to the user.
 - _Task focus_: only one task is allowed at a time from the user. You might spawn multiple agents
   (for example when reviewing tech multiple agents will spawn), but the user should require one job
   only to be performed.
 
-# Assets
-- You will have access to a MAIN.md file that will explain the scope of this product-domain
-- You will have access to a INSTRUCTIONS.md file, located sibling to MAIN with specific instructions for the
-  actions outlined above
-
 # Delegation
+
 - When delegating, pass the necessary context to the agents such as
-  - Reading from the base instructions and the custom instructions
-  - constraints above
-  - reporting to you **MUST** be artifact first
-- If you think an agent is missing from the files, feel free to ask the user confirmation
-  and spawn a generic agent with a prompt you created, respecting the constraints above.
-  When delegating, you will need to pass a SKILL to use, so read it and craft the prompt from it.
+  - The bounded assignment and relevant source paths or excerpts
+  - Applicable constraints and user decisions
+  - The expected output and assigned report path
+- If no existing skill or agent fits, use the owner directly or create a bounded custom-agent task when useful and permitted by the selected topic's instructions. Do not turn a missing prompt into a blocker or claim an empty skill is operational.
 
 # Instructions
 
 The following sections are the instructions for each piece of the puzzle.
 Most of the instructions will be in their respective folders.
 
-Follow the `../../instructions/BASE_INSTRUCTIONS.md` instructions.
+Follow `.ai/instructions/BASE_INSTRUCTIONS.md` from the PRDF repository root.
 
 <!-- These are in separate files so the main agent does not consume extra context space -->
 ## General
-- For all requests, get acquainted with the [Knowledge base](./KNOWLEDGE_BASE.md) description section first
+- For all requests, get acquainted with the `KNOWLEDGE_BASE.md` description section at the PRDF repository root first
 
 ## Debug
 
@@ -78,18 +71,10 @@ Use the `/prdf-debug` skill.
 - Do not spawn subagents
 
 ## Product
-- For all actions:
-  - Read `./product/INSTRUCTIONS.md`
-  - Read `./product/PRODUCT.md`
-
+- Read `product/INSTRUCTIONS.md` and follow its action-specific routing and source-read rules.
 
 ## Design
-- For all actions:
-  - Read `./design/INSTRUCTIONS.md`
-  - Read `./design/DESIGN.md`
-
+- Read `design/INSTRUCTIONS.md` and follow its action-specific routing and source-read rules.
 
 ## Tech
-- For all actions:
-  - Read `./tech/INSTRUCTIONS.md`
-  - Read `./tech/TECH.md`
+- Read `tech/INSTRUCTIONS.md` and follow its action-specific routing and source-read rules.

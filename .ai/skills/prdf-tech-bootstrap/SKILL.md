@@ -31,18 +31,18 @@ back-and-forths with the user.
 
 # Instructions
 
-1. Read the `../../instructions/BASE_INSTRUCTIONS.md` file and the `./CUSTOM_INSTRUCTIONS.md` file from the PRDF repo
+Run this workflow in the user-facing conversation; it owns the clarification, validation, feedback, and confirmation gates. Do not spawn the bootstrap skill itself as an agent.
+
+1. Read `.ai/instructions/BASE_INSTRUCTIONS.md` unless already available in the current conversation. Reuse supplied Tech context and relevant Product requirements; read only missing sources needed for this bootstrap.
 2. Ask the user any clarification questions to get info necessary to bootstrap, look at the [Inputs](#inputs) section
-	- Make sure to get as much information as possible, this will allow you to better
-	  perform discovery going forward and spawn fresh agents to help
-3. Spawn a few subagents using your harness tools. They sould write their results in
-   temporary files using their harness. This is the typology of agents, you can trigger more
-   if necessary.
-	- Launch codebase discovery & bootstrap using the `/prdf-tech-discovery` skill
-	- Launch documentation exploration from provided doc sources (Notion, figma, etc...) with the `/prdf-tech-discovery` skill
-4. Synthethize the information
+	- Gather the inputs needed for the available discovery work; do not request unrelated context.
+3. After gathering and validating the user-provided context, delegate only the discovery work supported by available sources.
+	- Launch codebase discovery using `/prdf-tech-discovery` when a relevant codebase is available.
+	- Launch documentation discovery using `/prdf-tech-discovery` when relevant documentation sources were provided.
+	- Assign each agent a distinct report path in the session scratchpad.
+4. Synthesize the information into the assigned session-scratchpad file.
 	- If any drifts are detected between the sources, flag them to the user
-	- Combine the sources into a comprehensive temporary file, combining by area such as
+	- Combine the sources into that assigned scratchpad file, combining by area such as
 		- Features
 		- Data models
 		- Architecture
@@ -56,10 +56,11 @@ back-and-forths with the user.
    if any sources have been missed. Once you get answers/new sources, go back to 3 or 4.
 6. Confirm with the user and start a few agents to write to the `/tech` folder of the PRDF repo, following the
    CUSTOM_INSTRUCTIONS and templates if needed.
-	- Spawn an agent to write the `/codebase` folder, both the features and repos and CODEBASE.md
-	- Spawn an agent to write the `/architecture` section, following the structure described in KNOWLEDGE_BASE.md
+	- Assign an agent to write only the relevant `/tech/codebase` files, including features, repos, and `CODEBASE.md`.
+	- Assign an agent to write only the `/tech/architecture` section, following the structure described in the PRDF-root `KNOWLEDGE_BASE.md`.
 		- Any diagrams should be built following either CUSTOM_INSTRUCTIONS or the "Building diagrams" below
-	- Spawn an agent to write the `/data-model` section
+	- Assign an agent to write only the `/tech/data-model` section.
+	- Do not start these knowledge-base edits until the user confirms the synthesized findings.
 
 # Detecting Drift
 Once everything's validated and written down, check the `/product` and `/design` sections
