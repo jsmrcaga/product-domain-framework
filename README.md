@@ -1,30 +1,88 @@
+<p align="center"><img src="./docs/assets/logo.png" height="150px"/></p>
 <h1 align="center">Product-Domain Framework</h1>
 
 This repo is a collection of LLM Agents and Skills to help
 you and your team get better grasp on your product's domain.
 
+PRDF is supposed to be your personal assistant and help you in
+- Creating PRD and reviewing documents
+- Distilling ideas and PRD into tech specs and reviewing them
+
 This framework was inspired by Google's
 [Elephant-Goldfish model](https://github.com/google/elephant-goldfish-model/tree/main),
 and aims to extend it to get a product understanding, and simplifies it for teams to use.
+
+<p align="center">
+  <a href="#install">Install</a> &ensp;·&ensp;
+  <a href="#quickstart">Quickstart</a> &ensp;·&ensp;
+  <a href="#how-it-works">How it works</a>
+</p>
+
+# `tl;dr`
+PRDF is a repo where you keep a version of your subdomain knowledge base.
+It's meant for LLMs, not humans, to get an assistant for your team.
+
+PRDF is not your source of truth, you keep using the tools you are used to,
+and you need to keep PRDF up-to-date to fully exploit it.
+
+Once bootstrapped, PRDF gives you an assistant to
+- Write & Review Product Briefs and PRDs
+   - Keeps tabs on edge cases, metrics, roadmaps, and user feedback
+- Draft & ship for Product Design
+   - Has an eye on System Designs, guidelines, user discovery
+- Draft & Promote tech specs
+   - Including actionable tasks for LLMs
+   - And code review
 
 # WIP
 This project is wip. There is still much to do
 - Product skills
 - Tech skills
 - Design skills
-- clean-jsdoc-theme guide generator
 
 # Quickstart
+
+## Install
+- Clone this repo, and name it something related to your domain
+- Ask Claude/Copilot/<your agent/> to install the skills
+   - On Copilot you can also add the `.ai/skills` directory as a source using the `/skill` command
 
 Always use the `/prdf-owner` skill as the agent you invoke.
 Then ask it what you want to do, it will select the relevant skills for you
 
 ```sh
-> /prdf-owner let's bootstrap product
+/prdf-owner let's do something
 ```
 
+## First things first
+
+You first need to bootstrap the repo. This should take around 1h per discipline.
+Our suggestion is to
+- start by bootstrapping Product
+- boostrap Design and Tech afterwards
+- Make a final pass to detect drift
+- Send a Pull Request and review with your team
+
+To start boostrapping, enter some basic info in either
+`product/PRODUCT_INTRO.md` (or /tech or /design) and ask the
+prdf-owner to help:
 ```sh
-> /prdf-owner tech team says that user cannot do X, but it should be possible. What's the status?
+/prdf-owner let's bootstrap product
+```
+
+It should then guide you on bootstrapping, and spawn a few agents to
+analyze your sources.
+
+## Day-to-day usage
+
+`/prdf-owner` should use you to the most adequate skill for your task,
+but feel free to check what skills are available in `.ai/skills`.
+
+
+```sh
+/prdf-owner let's draft the tech specs for Feature X. My idea is a simple \
+            queue with a worker process, i'm worried about the locking \
+            mechanism in xyz though.
 ```
 
 # Actions
